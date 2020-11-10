@@ -30,6 +30,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        dataBinding true
+    }
 }
 
 dependencies {
@@ -42,4 +46,19 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+
+    implementation 'org.permissionsdispatcher:permissionsdispatcher:4.8.0'
+    annotationProcessor 'org.permissionsdispatcher:permissionsdispatcher-processor:4.8.0'
+
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+
 }
