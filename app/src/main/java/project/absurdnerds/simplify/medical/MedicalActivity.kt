@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import project.absurdnerds.simplify.R
 import project.absurdnerds.simplify.databinding.ActivityMedicalBinding
 import project.absurdnerds.simplify.medical.MedicalViewState.*
+import project.absurdnerds.simplify.utils.dialog.ViewDialog
 import project.absurdnerds.simplify.utils.showToast
 
 class MedicalActivity : AppCompatActivity() {
@@ -24,6 +25,8 @@ class MedicalActivity : AppCompatActivity() {
 
     private lateinit var viewModel : MedicalViewModel
 
+    private lateinit var loadingDialog : ViewDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_medical)
@@ -34,6 +37,7 @@ class MedicalActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(MedicalViewModel::class.java)
+        loadingDialog = ViewDialog(this)
     }
 
     private fun setObservers() {
@@ -50,21 +54,29 @@ class MedicalActivity : AppCompatActivity() {
         when(state) {
             Loading -> showLoading()
             OnSuccess -> onSuccess()
-            is OnError -> state.mssg?.let { showToast(it) }
+            is OnError -> onError(state.mssg)
             is FieldError -> showFieldError(state)
         }
     }
 
     private fun showLoading() {
-
+        loadingDialog.showDialog()
     }
 
     private fun hideLoading() {
-
+        loadingDialog.hideDialog()
     }
 
     private fun onSuccess() {
+        hideLoading()
         showToast("Success")
+    }
+
+    private fun onError(message : String?) {
+        hideLoading()
+        if (message != null) {
+            showToast(message)
+        }
     }
 
     private fun showFieldError(type: FieldError) {

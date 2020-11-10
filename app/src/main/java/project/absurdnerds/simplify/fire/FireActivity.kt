@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import project.absurdnerds.simplify.R
 import project.absurdnerds.simplify.databinding.ActivityFireBinding
 import project.absurdnerds.simplify.fire.FireViewState.*
+import project.absurdnerds.simplify.utils.dialog.ViewDialog
 import project.absurdnerds.simplify.utils.showToast
 import timber.log.Timber
 
@@ -25,6 +26,8 @@ class FireActivity : AppCompatActivity() {
 
     private lateinit var viewModel : FireViewModel
 
+    private lateinit var loadingDialog : ViewDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_fire)
@@ -35,6 +38,7 @@ class FireActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(FireViewModel::class.java)
+        loadingDialog = ViewDialog(this)
     }
 
     private fun initUI() {
@@ -51,21 +55,29 @@ class FireActivity : AppCompatActivity() {
         when(state) {
             Loading -> showLoading()
             OnSuccess -> onSuccess()
-            is OnError -> state.mssg?.let { showToast(it) }
+            is OnError -> onError(state.mssg)
             is FieldError -> showFieldError(state)
         }
     }
 
     private fun showLoading() {
-
+        loadingDialog.showDialog()
     }
 
     private fun hideLoading() {
-
+        loadingDialog.hideDialog()
     }
 
     private fun onSuccess() {
+        hideLoading()
         showToast("Success")
+    }
+
+    private fun onError(message : String?) {
+        hideLoading()
+        if (message != null) {
+            showToast(message)
+        }
     }
 
     private fun showFieldError(type: FieldError) {
