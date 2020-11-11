@@ -2,13 +2,17 @@ package project.absurdnerds.simplify.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.google.firebase.iid.FirebaseInstanceId
+import kotlinx.android.synthetic.main.activity_home.*
 import project.absurdnerds.simplify.R
 import project.absurdnerds.simplify.databinding.ActivityHomeBinding
 import project.absurdnerds.simplify.fire.FireActivity
 import project.absurdnerds.simplify.medical.MedicalActivity
 import project.absurdnerds.simplify.police.PoliceActivity
+import timber.log.Timber
 
 class HomeActivity : AppCompatActivity() {
 
@@ -19,6 +23,11 @@ class HomeActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         initView()
         onClick()
+
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+            Timber.e(it.token)
+        }
+
     }
 
     private fun onClick() {

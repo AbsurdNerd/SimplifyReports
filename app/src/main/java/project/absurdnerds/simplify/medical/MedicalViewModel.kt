@@ -7,7 +7,7 @@ import project.absurdnerds.simplify.medical.MedicalViewState.*
 import project.absurdnerds.simplify.utils.lifecycle.SingleLiveEvent
 
 class MedicalViewModel constructor(
-    private val app : Application
+    app : Application
 ) : AndroidViewModel(app){
 
     var viewState : MedicalViewState = Init

@@ -36,6 +36,12 @@
         <activity android:name=".MainActivity"
             android:launchMode="singleTop">
         </activity>
+        <service
+            android:name=".FirebaseNotificationService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
