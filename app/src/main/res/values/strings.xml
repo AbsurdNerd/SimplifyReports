@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Simplify</string>
+
+    <string name="text_login_mobile">We will send you an <b>One Time Password</b>\n on this mobile number</string>
+    <string name="login_otp_text">Enter the OTP sent to <b>+91-XXXXXXXXXXX</b></string>
+
     <string name="fire_alert">Fire Alert</string>
     <string name="medical_alert">Medical Alert</string>
     <string name="police_report">Police Report</string>
