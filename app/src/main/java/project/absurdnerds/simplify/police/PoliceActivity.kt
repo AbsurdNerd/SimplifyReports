@@ -7,6 +7,8 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import project.absurdnerds.simplify.R
 import project.absurdnerds.simplify.databinding.ActivityPoliceBinding
+import project.absurdnerds.simplify.police.adapter.PoliceReportAdapter
+import project.absurdnerds.simplify.police.policeReport.PoliceReportActivity
 import project.absurdnerds.simplify.utils.showToast
 
 class PoliceActivity : AppCompatActivity() {
@@ -45,6 +47,9 @@ class PoliceActivity : AppCompatActivity() {
     }
 
     fun onClick(reportType: String) {
-        showToast(reportType)
+        PoliceReportActivity.start(
+                this,
+                reportType
+        )
     }
 }
