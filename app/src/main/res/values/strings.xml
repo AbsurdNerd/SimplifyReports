@@ -16,6 +16,8 @@
     <string name="call_an_ambulance">Call an Ambulance</string>
     <string name="enter_patient_problem">Enter Patient Problem</string>
     <string name="enter_patient_phone_number">Enter patient phone number</string>
+    <string name="submit">Submit</string>
+    <string name="describe_your_problem_in_detail">Describe your problem in detail</string>
     <string-array name="blood_group">
         <item>A+</item>
         <item>B+</item>

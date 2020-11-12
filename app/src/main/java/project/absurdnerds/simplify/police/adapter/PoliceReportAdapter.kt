@@ -1,4 +1,4 @@
-package project.absurdnerds.simplify.police
+package project.absurdnerds.simplify.police.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,13 +7,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import project.absurdnerds.simplify.R
 import project.absurdnerds.simplify.databinding.ItemPoliceReportBinding
+import project.absurdnerds.simplify.police.PoliceActivity
 
 class PoliceReportAdapter constructor(
         private  val list : List<String>,
         private val context : Context
 ) : RecyclerView.Adapter<PoliceReportAdapter.ReportHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PoliceReportAdapter.ReportHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReportHolder =
             ReportHolder(
                 DataBindingUtil.inflate(
                         LayoutInflater.from(parent.context),
@@ -23,7 +24,7 @@ class PoliceReportAdapter constructor(
                 )
             )
 
-    override fun onBindViewHolder(holder: PoliceReportAdapter.ReportHolder, position: Int) {
+    override fun onBindViewHolder(holder: ReportHolder, position: Int) {
         holder.bind(list[position])
 
         holder.itemView.setOnClickListener{
