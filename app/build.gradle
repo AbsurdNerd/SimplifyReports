@@ -68,6 +68,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:18.0.0'
     implementation 'com.google.firebase:firebase-auth:20.0.0'
     implementation 'com.google.firebase:firebase-messaging:21.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     implementation 'android.arch.lifecycle:extensions:1.1.1'
@@ -80,6 +81,10 @@ dependencies {
 
     // Stetho
     implementation 'com.facebook.stetho:stetho:1.5.1'
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
 
     implementation "androidx.browser:browser:1.2.0"
 

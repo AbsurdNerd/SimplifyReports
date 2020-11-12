@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="project.absurdnerds.simplify">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
@@ -13,6 +17,7 @@
         android:theme="@style/Theme.Simplify"
         tools:replace="android:icon">
         <activity android:name=".police.policeReport.PoliceReportActivity"></activity>
+        <activity android:name=".NewUserActivity"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,13 +39,13 @@
             android:label="Home Activity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".MainActivity"
-            android:launchMode="singleTop">
-        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop"></activity>
         <service
             android:name=".FirebaseNotificationService"
             android:exported="false">
-            <intent-filter>
+            <intent-filter android:priority="10000">
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>

@@ -3,12 +3,16 @@ package project.absurdnerds.simplify.medical
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseAuth
 import project.absurdnerds.simplify.medical.MedicalViewState.*
 import project.absurdnerds.simplify.utils.lifecycle.SingleLiveEvent
+import kotlin.coroutines.coroutineContext
 
 class MedicalViewModel constructor(
     app : Application
 ) : AndroidViewModel(app){
+
+    var firebaseAuth = FirebaseAuth.getInstance()
 
     var viewState : MedicalViewState = Init
         set(value) {
@@ -22,8 +26,9 @@ class MedicalViewModel constructor(
 
     var text : MutableLiveData<String> = MutableLiveData()
 
-    fun button (){
+    fun button() {
         viewState = OnSuccess
         text.value = "button pressed"
+        firebaseAuth.signOut()
     }
 }

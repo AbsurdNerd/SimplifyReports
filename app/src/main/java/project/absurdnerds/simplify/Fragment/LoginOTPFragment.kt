@@ -19,12 +19,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.login_mobile_fragment.*
 import kotlinx.android.synthetic.main.login_otp_fragment.*
-import project.absurdnerds.simplify.FragmentChangeInterface
-import project.absurdnerds.simplify.MainActivity
-import project.absurdnerds.simplify.R
+import project.absurdnerds.simplify.*
+import project.absurdnerds.simplify.api.ApiInterface
+import project.absurdnerds.simplify.data.request.ProfilePutRequest
 import project.absurdnerds.simplify.home.HomeActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
@@ -160,9 +164,9 @@ class LoginOTPFragment : Fragment() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Timber.d("signInWithCredential:success")
-                    startActivity(Intent(context, HomeActivity::class.java))
-                    activity!!.finish()
-
+//                    startActivity(Intent(context, HomeActivity::class.java))
+//                    activity!!.finish()
+                        createToken()
                 } else {
 
                     Timber.e(task.exception, "signInWithCredential:failure")
@@ -247,6 +251,39 @@ class LoginOTPFragment : Fragment() {
                 +otp2.text.toString().length+otp1.text.toString().length== 6) {
             }
         }
+    }
+
+    fun createToken() {
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            checkUser(mobileNumber!!, it)
+        }
+    }
+
+    private fun checkUser(mobile: String, token: String) {
+        var apiInterface = ApiInterface.invoke()
+        val commonPostResponse = ProfilePutRequest(mobile, token)
+        var call: Call<Void> = apiInterface.putProfileToken(commonPostResponse)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                Timber.e("860 : ${response.code().toString()}")
+                if (response.code() == 200) {
+                    context!!.startActivity(Intent(context, HomeActivity::class.java))
+                }
+                else {
+                    context!!.startActivity(Intent(context, NewUserActivity::class.java))
+                }
+                activity!!.finish()
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Timber.e(t)
+            }
+
+        })
     }
 
 }
