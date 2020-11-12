@@ -7,4 +7,28 @@
     <string name="fire_alert">Fire Alert</string>
     <string name="medical_alert">Medical Alert</string>
     <string name="police_report">Police Report</string>
+    <string name="enter_age">Enter Age</string>
+    <string name="fill_the_patient_form">Fill the patient form :</string>
+    <string name="enter_patient_name">Enter Patient Name</string>
+    <string name="enter_patient_gender">Enter Patient Gender</string>
+    <string name="encounter_fire_nearby_pin_the_location_and_hit_alert">Encounter fire nearby pin the location and hit alert</string>
+    <string name="alert">Alert</string>
+    <string name="call_an_ambulance">Call an Ambulance</string>
+    <string name="enter_patient_problem">Enter Patient Problem</string>
+    <string name="enter_patient_phone_number">Enter patient phone number</string>
+    <string-array name="blood_group">
+        <item>A+</item>
+        <item>B+</item>
+        <item>O+</item>
+        <item>AB+</item>
+        <item>A-</item>
+        <item>B-</item>
+        <item>O-</item>
+        <item>AB-</item>
+    </string-array>
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
 </resources>
