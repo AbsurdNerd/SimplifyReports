@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "730628947794",
+    "firebase_url": "https://simplify-app-dd4f6.firebaseio.com",
+    "project_id": "simplify-app-dd4f6",
+    "storage_bucket": "simplify-app-dd4f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730628947794:android:5a9af0819bad6eebe4c48b",
+        "android_client_info": {
+          "package_name": "project.absurdnerds.simplify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730628947794-j66ui8l0tk3hudclu86qkfn9uqkjk9f0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "project.absurdnerds.simplify",
+            "certificate_hash": "c7d3d99aa9fdfe7a3d11227ca7f84e9f05faf1fb"
+          }
+        },
+        {
+          "client_id": "730628947794-ucs3e1rk06ofi00iv6pn8u1vaijs5hl1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_0zQ8Zg8FnE5iuOn40r35it_j1q7kmrA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730628947794-ucs3e1rk06ofi00iv6pn8u1vaijs5hl1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
