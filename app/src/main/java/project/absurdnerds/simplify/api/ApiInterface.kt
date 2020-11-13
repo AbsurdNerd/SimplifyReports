@@ -6,6 +6,7 @@ import dagger.multibindings.IntKey
 import dagger.multibindings.StringKey
 import project.absurdnerds.simplify.UserModel
 import project.absurdnerds.simplify.data.request.*
+import project.absurdnerds.simplify.data.response.AmbulanceGetResponse
 import project.absurdnerds.simplify.data.response.FirePostResponse
 import project.absurdnerds.simplify.data.response.PolicePostResponse
 import project.absurdnerds.simplify.data.response.ProfilePostResponse
@@ -80,6 +81,13 @@ interface ApiInterface {
     fun postPoliceData(
         @Body policePostRequest: PolicePostRequest
     ): Call<PolicePostResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @GET("ambulance/")
+    fun getAmbulance(
+        @Body commonPhoneRequest: CommonPhoneRequest
+    ) : Call<AmbulanceGetResponse>
 
 
 }
