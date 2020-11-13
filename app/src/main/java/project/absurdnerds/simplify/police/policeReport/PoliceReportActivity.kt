@@ -6,10 +6,13 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_fire.*
 import kotlinx.android.synthetic.main.activity_medical.*
 import kotlinx.android.synthetic.main.activity_police_report.*
 import project.absurdnerds.simplify.LocationChangeInterface
@@ -71,6 +74,8 @@ class PoliceReportActivity : AppCompatActivity(), LocationChangeInterface {
         handleIntent()
         setObservers()
         initUI()
+
+        setSupportActionBar(toolPolice)
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.policeLocationFrame, MapsFragment())
@@ -209,4 +214,25 @@ class PoliceReportActivity : AppCompatActivity(), LocationChangeInterface {
         latLong = lat
         etPoliceAddress.setText(location)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.itemHistory -> {
+                // TODO Add your Activity to open here
+                // INTENT
+
+                showToast("History")
+
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 }

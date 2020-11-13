@@ -4,11 +4,12 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.content.ContextCompat
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -16,15 +17,12 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_fire.*
 import project.absurdnerds.simplify.LocationChangeInterface
 import project.absurdnerds.simplify.MapsFragment
-import project.absurdnerds.simplify.NewUserActivity
 import project.absurdnerds.simplify.R
 import project.absurdnerds.simplify.api.ApiInterface
 import project.absurdnerds.simplify.data.request.FireRequest
-import project.absurdnerds.simplify.data.request.ProfilePutRequest
 import project.absurdnerds.simplify.data.response.FirePostResponse
 import project.absurdnerds.simplify.databinding.ActivityFireBinding
 import project.absurdnerds.simplify.fire.FireViewState.*
-import project.absurdnerds.simplify.home.HomeActivity
 import project.absurdnerds.simplify.utils.AppConfig.SHARED_PREF
 import project.absurdnerds.simplify.utils.allPermissionsGranted
 import project.absurdnerds.simplify.utils.dialog.ViewDialog
@@ -33,6 +31,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
+
 
 class FireActivity : AppCompatActivity(), LocationChangeInterface {
 
@@ -48,7 +47,7 @@ class FireActivity : AppCompatActivity(), LocationChangeInterface {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
         )
-        fun start(context : Context) {
+        fun start(context: Context) {
             val intent = Intent(context, FireActivity::class.java)
             context.startActivity(intent)
         }
@@ -64,6 +63,10 @@ class FireActivity : AppCompatActivity(), LocationChangeInterface {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_fire)
         sharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+
+        setSupportActionBar(toolFire)
+//        toolFire.inflateMenu(R.menu.menu)
+
         firebaseAuth = FirebaseAuth.getInstance()
         initViewModel()
         setObservers()
@@ -106,7 +109,7 @@ class FireActivity : AppCompatActivity(), LocationChangeInterface {
         })
     }
 
-    private fun render(state : FireViewState) {
+    private fun render(state: FireViewState) {
         when(state) {
             Loading -> showLoading()
             OnSuccess -> onSuccess()
@@ -128,7 +131,7 @@ class FireActivity : AppCompatActivity(), LocationChangeInterface {
         showToast("Success")
     }
 
-    private fun onError(message : String?) {
+    private fun onError(message: String?) {
         hideLoading()
         if (message != null) {
             showToast(message)
@@ -171,8 +174,7 @@ class FireActivity : AppCompatActivity(), LocationChangeInterface {
                     var sad = SweetAlertDialog(this@FireActivity, SweetAlertDialog.SUCCESS_TYPE)
                     sad.titleText = "You have Reported Fire in your Area"
                     sad.show()
-                }
-                else {
+                } else {
                     showToast("Something went wrong")
                 }
                 sweetAlertDialog.cancel()
@@ -202,6 +204,26 @@ class FireActivity : AppCompatActivity(), LocationChangeInterface {
         latLong = b
 
         etReportFireLocation.setText(a)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.itemHistory -> {
+                // TODO Add your Activity to open here
+                // INTENT
+
+                showToast("History")
+
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 }

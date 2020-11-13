@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View.OnTouchListener
 import androidx.appcompat.app.AppCompatActivity
@@ -65,6 +67,8 @@ class MedicalActivity : AppCompatActivity(), LocationChangeInterface {
         initViewModel()
         setObservers()
         initUI()
+
+        setSupportActionBar(toolMedical)
 
         medicalLocationCard.setOnTouchListener(OnTouchListener { v, event ->
             when (event.action) {
@@ -225,4 +229,25 @@ class MedicalActivity : AppCompatActivity(), LocationChangeInterface {
         etPatientAddress.setText(location)
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.itemHistory -> {
+                // TODO Add your Activity to open here
+                // INTENT
+
+                showToast("History")
+
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 }
