@@ -23,7 +23,9 @@ import project.absurdnerds.simplify.data.request.FireRequest
 import project.absurdnerds.simplify.data.response.FirePostResponse
 import project.absurdnerds.simplify.databinding.ActivityFireBinding
 import project.absurdnerds.simplify.fire.FireViewState.*
+import project.absurdnerds.simplify.history.FireHistoryActivity
 import project.absurdnerds.simplify.utils.AppConfig.SHARED_PREF
+import project.absurdnerds.simplify.utils.ReportType
 import project.absurdnerds.simplify.utils.allPermissionsGranted
 import project.absurdnerds.simplify.utils.dialog.ViewDialog
 import project.absurdnerds.simplify.utils.showToast
@@ -216,7 +218,10 @@ class FireActivity : AppCompatActivity(), LocationChangeInterface {
         return when (item.itemId) {
             R.id.itemHistory -> {
                 // TODO Add your Activity to open here
-                // INTENT
+                FireHistoryActivity.start(
+                    this,
+                    ReportType.FIRE.name
+                )
 
                 showToast("History")
 

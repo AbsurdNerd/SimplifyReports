@@ -83,20 +83,19 @@ interface ApiInterface {
     @Headers("Content-Type: application/json")
     @GET("ambulance/")
     fun getAmbulance(
-        @Body commonPhoneRequest: CommonPhoneRequest
+        @Query("phone") phone: String
     ) : Call<AmbulanceGetResponse>
 
     @Headers("Content-Type: application/json")
     @GET("fire/")
     fun getFire(
-        @Body commonPhoneRequest: CommonPhoneRequest
+        @Query("phone") phone: String
     ) : Call<FireGetResponse>
 
     @Headers("Content-Type: application/json")
     @GET("police/")
     fun getPolice(
-        @Body commonPhoneRequest: CommonPhoneRequest
+        @Query("phone") phone: String
     ) : Call<PoliceGetResponse>
-
 
 }

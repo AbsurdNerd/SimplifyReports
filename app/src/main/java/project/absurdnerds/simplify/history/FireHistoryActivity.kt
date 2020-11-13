@@ -98,8 +98,8 @@ class FireHistoryActivity : AppCompatActivity() {
     private fun fetchAmbulance() {
 
         var apiInterface = ApiInterface.invoke()
-        val getRequest = CommonPhoneRequest(mobileNumber)
-        var call: Call<AmbulanceGetResponse> = apiInterface.getAmbulance(getRequest)
+//        val getRequest = CommonPhoneRequest(mobileNumber)
+        var call: Call<AmbulanceGetResponse> = apiInterface.getAmbulance(mobileNumber)
 
         call.enqueue(object : Callback<AmbulanceGetResponse> {
 
@@ -107,7 +107,7 @@ class FireHistoryActivity : AppCompatActivity() {
                 call: Call<AmbulanceGetResponse>,
                 response: Response<AmbulanceGetResponse>
             ) {
-                Timber.e("ambulance history : ${response.code().toString()}")
+                Timber.e("history : ${response.code().toString()}")
                 if (response.isSuccessful) {
                     ambulanceList = response.body()!!
                 } else {
@@ -129,7 +129,7 @@ class FireHistoryActivity : AppCompatActivity() {
 
         var apiInterface = ApiInterface.invoke()
         val getRequest = CommonPhoneRequest(mobileNumber)
-        var call: Call<FireGetResponse> = apiInterface.getFire(getRequest)
+        var call: Call<FireGetResponse> = apiInterface.getFire(mobileNumber)
 
         call.enqueue(object : Callback<FireGetResponse> {
 
@@ -139,7 +139,9 @@ class FireHistoryActivity : AppCompatActivity() {
             ) {
                 Timber.e("fire history : ${response.code().toString()}")
                 if (response.isSuccessful) {
-                    fireList = response.body()!!
+                    fireList.addAll(response.body()!!)
+                    fireAdapter.notifyDataSetChanged()
+                    Timber.e(response.body()!!.toString())
                 } else {
                     showToast("Something went wrong")
                 }
@@ -159,7 +161,7 @@ class FireHistoryActivity : AppCompatActivity() {
 
         var apiInterface = ApiInterface.invoke()
         val getRequest = CommonPhoneRequest(mobileNumber)
-        var call: Call<PoliceGetResponse> = apiInterface.getPolice(getRequest)
+        var call: Call<PoliceGetResponse> = apiInterface.getPolice(mobileNumber)
 
         call.enqueue(object : Callback<PoliceGetResponse> {
 
@@ -170,6 +172,7 @@ class FireHistoryActivity : AppCompatActivity() {
                 Timber.e("police history : ${response.code().toString()}")
                 if (response.isSuccessful) {
                     policeList = response.body()!!
+                    Timber.e(policeList.size.toString())
                 } else {
                     showToast("Something went wrong")
                 }
