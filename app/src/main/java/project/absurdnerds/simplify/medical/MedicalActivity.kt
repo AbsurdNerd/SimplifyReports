@@ -125,7 +125,7 @@ class MedicalActivity : AppCompatActivity(), LocationChangeInterface {
                 call: Call<AmbulanceRequest>,
                 response: Response<AmbulanceRequest>
             ) {
-                Timber.e("Fire Report : ${response.code().toString()}")
+                Timber.e("Medical Report : ${response.code().toString()}")
                 if (response.isSuccessful) {
                     var sad = SweetAlertDialog(this@MedicalActivity, SweetAlertDialog.SUCCESS_TYPE)
                     sad.titleText = "You have Reported a Patient"

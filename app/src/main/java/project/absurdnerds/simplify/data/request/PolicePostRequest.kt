@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 import android.os.Parcelable
 
 @Parcelize
-class PoliceRequest(
+class PolicePostRequest(
 
     @SerializedName("location")
     var location: String? = null,

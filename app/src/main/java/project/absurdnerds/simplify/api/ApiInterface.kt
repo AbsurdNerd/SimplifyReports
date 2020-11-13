@@ -78,7 +78,7 @@ interface ApiInterface {
     @Headers("Content-Type: application/json")
     @POST("police/")
     fun postPoliceData(
-        @Body profileRequest: ProfileRequest
+        @Body policePostRequest: PolicePostRequest
     ): Call<PolicePostResponse>
 
 

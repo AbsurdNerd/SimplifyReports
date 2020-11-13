@@ -2,19 +2,48 @@ package project.absurdnerds.simplify.police.policeReport
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import cn.pedant.SweetAlert.SweetAlertDialog
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_medical.*
+import kotlinx.android.synthetic.main.activity_police_report.*
+import project.absurdnerds.simplify.LocationChangeInterface
+import project.absurdnerds.simplify.MapsFragment
 import project.absurdnerds.simplify.R
+import project.absurdnerds.simplify.api.ApiInterface
+import project.absurdnerds.simplify.data.request.AmbulancePostRequest
+import project.absurdnerds.simplify.data.request.AmbulanceRequest
+import project.absurdnerds.simplify.data.request.PolicePostRequest
+import project.absurdnerds.simplify.data.response.FirePostResponse
+import project.absurdnerds.simplify.data.response.PolicePostResponse
+import project.absurdnerds.simplify.data.response.ProfilePostResponse
 import project.absurdnerds.simplify.databinding.ActivityPoliceReportBinding
+import project.absurdnerds.simplify.medical.MedicalActivity
 import project.absurdnerds.simplify.utils.dialog.ViewDialog
 import project.absurdnerds.simplify.utils.showToast
 import project.absurdnerds.simplify.police.policeReport.PoliceReportViewState.*
+import project.absurdnerds.simplify.utils.AppConfig
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import timber.log.Timber
 
-class PoliceReportActivity : AppCompatActivity() {
+class PoliceReportActivity : AppCompatActivity(), LocationChangeInterface {
 
     companion object{
+
+        private lateinit var sharedPreferences: SharedPreferences
+        private lateinit var firebaseAuth: FirebaseAuth
+        private lateinit var sweetAlertDialog: SweetAlertDialog
+        private var location: String = ""
+        private var latLong: String = ""
+        private var mobileNumber: String = ""
+        
         private const val INTENT_REPORT_NAME = "intent_report_name"
         private const val INTENT_NOTIFY = "intent_notify"
         fun start(context: Context, report_name: String, notify : Boolean) {
@@ -42,6 +71,63 @@ class PoliceReportActivity : AppCompatActivity() {
         handleIntent()
         setObservers()
         initUI()
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.policeLocationFrame, MapsFragment())
+            .commit()
+
+        btPoliceSubmit.setOnClickListener {
+            postPoliceRequest()
+        }
+
+    }
+
+    private fun postPoliceRequest() {
+        sweetAlertDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
+        sweetAlertDialog.progressHelper.barColor = Color.parseColor("#A5DC86");
+        sweetAlertDialog.titleText = "Loading";
+        sweetAlertDialog.setCancelable(false);
+        sweetAlertDialog.show();
+
+        location = etPoliceAddress.text.toString()
+        var apiInterface = ApiInterface.invoke()
+        val postRequest = PolicePostRequest(
+            latLong,
+            etPoliceAddress.text.toString(),
+            intent.getStringExtra(INTENT_REPORT_NAME),
+            etPoliceDescription.text.toString(),
+            null,
+            intent.getBooleanExtra(INTENT_NOTIFY, false),
+            mobileNumber
+        )
+        Timber.e(intent.getStringExtra(INTENT_REPORT_NAME))
+        Timber.e(mobileNumber)
+        var call: Call<PolicePostResponse> = apiInterface.postPoliceData(postRequest)
+
+        call.enqueue(object : Callback<PolicePostResponse> {
+            override fun onResponse(
+                call: Call<PolicePostResponse>,
+                response: Response<PolicePostResponse>
+            ) {
+                Timber.e("Police Report : ${response.code().toString()}")
+                Timber.e(response.message().toString())
+                if (response.isSuccessful) {
+                    var sad = SweetAlertDialog(this@PoliceReportActivity, SweetAlertDialog.SUCCESS_TYPE)
+                    sad.titleText = "You have Registered your complaint"
+                    sad.show()
+                }
+                else {
+                    showToast("Something went wrong")
+                }
+                sweetAlertDialog.cancel()
+            }
+
+            override fun onFailure(call: Call<PolicePostResponse>, t: Throwable) {
+                Timber.e(t)
+                showToast("Something went wrong")
+                sweetAlertDialog.cancel()
+            }
+        })
     }
 
     private fun initViewModel() {
@@ -61,6 +147,18 @@ class PoliceReportActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
+
+        sharedPreferences = getSharedPreferences(AppConfig.SHARED_PREF, Context.MODE_PRIVATE)
+        firebaseAuth = FirebaseAuth.getInstance()
+
+        if (sharedPreferences.contains("PHONE")) {
+            mobileNumber = sharedPreferences.getString("PHONE", "0").toString()
+        }
+        else {
+            mobileNumber = firebaseAuth.currentUser!!.phoneNumber.toString()
+        }
+
+
         binding.viewModel = viewModel
     }
 
@@ -104,5 +202,11 @@ class PoliceReportActivity : AppCompatActivity() {
             ErrorField.PHONE -> binding.etPhone.error = type.message
             ErrorField.GENDER -> showToast(type.message)
         }*/
+    }
+
+    override fun onLocationChange(loc: String, lat: String) {
+        location = loc
+        latLong = lat
+        etPoliceAddress.setText(location)
     }
 }

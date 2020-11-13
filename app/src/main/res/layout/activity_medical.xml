@@ -233,7 +233,7 @@
                     android:id="@+id/etPatientAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_patient_problem"
+                    android:hint="Address"
                     android:inputType="text"
                     android:textSize="16sp" />
 
@@ -256,6 +256,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-
 </layout>
