@@ -65,7 +65,7 @@ interface ApiInterface {
     @POST("ambulance/")
     fun postAmbulanceData(
         @Body ambulancePostRequest: AmbulancePostRequest
-    ): Call<AmbulancePostRequest>
+    ): Call<AmbulanceRequest>
 
     // Fire
     @Headers("Content-Type: application/json")

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View.OnTouchListener
@@ -12,15 +13,26 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_fire.*
 import kotlinx.android.synthetic.main.activity_medical.*
 import project.absurdnerds.simplify.LocationChangeInterface
 import project.absurdnerds.simplify.MapsFragment
 import project.absurdnerds.simplify.R
+import project.absurdnerds.simplify.api.ApiInterface
+import project.absurdnerds.simplify.data.request.AmbulancePostRequest
+import project.absurdnerds.simplify.data.request.AmbulanceRequest
+import project.absurdnerds.simplify.data.request.FireRequest
+import project.absurdnerds.simplify.data.response.FirePostResponse
 import project.absurdnerds.simplify.databinding.ActivityMedicalBinding
+import project.absurdnerds.simplify.fire.FireActivity
 import project.absurdnerds.simplify.medical.MedicalViewState.*
 import project.absurdnerds.simplify.utils.AppConfig.SHARED_PREF
 import project.absurdnerds.simplify.utils.dialog.ViewDialog
 import project.absurdnerds.simplify.utils.showToast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import timber.log.Timber
 
 
 class MedicalActivity : AppCompatActivity(), LocationChangeInterface {
@@ -30,6 +42,9 @@ class MedicalActivity : AppCompatActivity(), LocationChangeInterface {
         private lateinit var sharedPreferences: SharedPreferences
         private lateinit var firebaseAuth: FirebaseAuth
         private lateinit var sweetAlertDialog: SweetAlertDialog
+        private var location: String = ""
+        private var latLong: String = ""
+        private var mobileNumber: String = ""
 
         fun start(context: Context) {
             val intent = Intent(context, MedicalActivity::class.java)
@@ -71,9 +86,63 @@ class MedicalActivity : AppCompatActivity(), LocationChangeInterface {
             medicalLocationCard.onTouchEvent(event)
         })
 
+        btAmbulanceCall.setOnClickListener {
+            reportPatient()
+        }
+
     }
 
     private fun reportPatient() {
+
+        sweetAlertDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
+        sweetAlertDialog.progressHelper.barColor = Color.parseColor("#A5DC86");
+        sweetAlertDialog.titleText = "Loading";
+        sweetAlertDialog.setCancelable(false);
+        sweetAlertDialog.show();
+
+        location = etPatientAddress.text.toString()
+        var gender = spPatientGender.selectedItem.toString()
+        var blood = spPatientBloodGroup.selectedItem.toString()
+//        var gender = "Male"
+//        var blood = "O+"
+        var apiInterface = ApiInterface.invoke()
+        val postRequest = AmbulancePostRequest(
+            etPatientName.text.toString(),
+            etPatientAge.text.toString().toInt(),
+            etPatientPhone.text.toString(),
+            gender,
+            blood,
+            etPatientProblem.text.toString(),
+            latLong,
+            etPatientAddress.text.toString(),
+            mobileNumber
+        )
+        Timber.e(postRequest.toString())
+        var call: Call<AmbulanceRequest> = apiInterface.postAmbulanceData(postRequest)
+
+        call.enqueue(object : Callback<AmbulanceRequest> {
+            override fun onResponse(
+                call: Call<AmbulanceRequest>,
+                response: Response<AmbulanceRequest>
+            ) {
+                Timber.e("Fire Report : ${response.code().toString()}")
+                if (response.isSuccessful) {
+                    var sad = SweetAlertDialog(this@MedicalActivity, SweetAlertDialog.SUCCESS_TYPE)
+                    sad.titleText = "You have Reported a Patient"
+                    sad.show()
+                }
+                else {
+                    showToast("Something went wrong")
+                }
+                sweetAlertDialog.cancel()
+            }
+
+            override fun onFailure(call: Call<AmbulanceRequest>, t: Throwable) {
+                Timber.e(t)
+                showToast("Something went wrong")
+                sweetAlertDialog.cancel()
+            }
+        })
 
     }
 
@@ -96,6 +165,14 @@ class MedicalActivity : AppCompatActivity(), LocationChangeInterface {
         supportFragmentManager.beginTransaction()
             .replace(R.id.patientLocationFrame, MapsFragment())
             .commit()
+
+        if (sharedPreferences.contains("PHONE")) {
+            mobileNumber = sharedPreferences.getString("PHONE", "0").toString()
+        }
+        else {
+            mobileNumber = firebaseAuth.currentUser!!.phoneNumber.toString()
+        }
+
         binding.viewModel = viewModel
     }
 
@@ -141,7 +218,11 @@ class MedicalActivity : AppCompatActivity(), LocationChangeInterface {
         }*/
     }
 
-    override fun onLocationChange(location: String, latLong: String) {
+    override fun onLocationChange(loc: String, lat: String) {
+
+        location = loc
+        latLong = lat
+        etPatientAddress.setText(location)
 
     }
 }

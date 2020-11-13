@@ -7,6 +7,9 @@ import android.os.Parcelable
 @Parcelize
 class AmbulanceRequest(
 
+    @SerializedName("id")
+    var id: Int? = null,
+
     @SerializedName("patient_name")
     var patientName: String? = null,
 
@@ -30,6 +33,9 @@ class AmbulanceRequest(
 
     @SerializedName("patient_problem")
     var patientProblem: String? = null,
+
+    @SerializedName("created")
+    var created: String? = null,
 
     @SerializedName("user")
     var user: String? = null
