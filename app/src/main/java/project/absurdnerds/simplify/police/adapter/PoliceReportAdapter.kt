@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import project.absurdnerds.simplify.R
+import project.absurdnerds.simplify.data.PoliceModel
 import project.absurdnerds.simplify.databinding.ItemPoliceReportBinding
 import project.absurdnerds.simplify.police.PoliceActivity
 
 class PoliceReportAdapter constructor(
-        private  val list : List<String>,
+        private  val list : List<PoliceModel>,
         private val context : Context
 ) : RecyclerView.Adapter<PoliceReportAdapter.ReportHolder>() {
 
@@ -40,9 +41,9 @@ class PoliceReportAdapter constructor(
             binding.root
     ) {
 
-        fun bind (item : String) {
+        fun bind (item : PoliceModel) {
 
-            binding.tvReportName.text = item
+            binding.tvReportName.text = item.reportType
 
         }
 

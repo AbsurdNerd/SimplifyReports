@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import project.absurdnerds.simplify.R
+import project.absurdnerds.simplify.data.PoliceModel
 import project.absurdnerds.simplify.databinding.ActivityPoliceBinding
 import project.absurdnerds.simplify.police.adapter.PoliceReportAdapter
 import project.absurdnerds.simplify.police.policeReport.PoliceReportActivity
@@ -24,7 +25,7 @@ class PoliceActivity : AppCompatActivity() {
 
     private lateinit var adapter : PoliceReportAdapter
 
-    private var list : MutableList<String> = mutableListOf()
+    private var list : MutableList<PoliceModel> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,17 +40,18 @@ class PoliceActivity : AppCompatActivity() {
     }
 
     private fun fillList(){
-        list.add("Found")
-        list.add("Missing")
-        list.add("Death")
-        list.add("Robbery")
+        list.add(PoliceModel("Found",false))
+        list.add(PoliceModel("Missing",false))
+        list.add(PoliceModel("Death",false))
+        list.add(PoliceModel("Robbery",true))
         adapter.notifyDataSetChanged()
     }
 
-    fun onClick(reportType: String) {
+    fun onClick(model: PoliceModel) {
         PoliceReportActivity.start(
                 this,
-                reportType
+                model.reportType,
+                model.notify
         )
     }
 }

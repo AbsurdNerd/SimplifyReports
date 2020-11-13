@@ -16,9 +16,11 @@ class PoliceReportActivity : AppCompatActivity() {
 
     companion object{
         private const val INTENT_REPORT_NAME = "intent_report_name"
-        fun start(context: Context, report_name: String) {
+        private const val INTENT_NOTIFY = "intent_notify"
+        fun start(context: Context, report_name: String, notify : Boolean) {
             val intent = Intent(context, PoliceReportActivity::class.java)
             intent.putExtra(INTENT_REPORT_NAME, report_name)
+            intent.putExtra(INTENT_NOTIFY, notify)
             context.startActivity(intent)
         }
     }
@@ -30,6 +32,8 @@ class PoliceReportActivity : AppCompatActivity() {
     private lateinit var loadingDialog : ViewDialog
 
     private var reportType : String? = null
+
+    private var notify : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +57,7 @@ class PoliceReportActivity : AppCompatActivity() {
 
     private fun handleIntent() {
         reportType = intent.getStringExtra(INTENT_REPORT_NAME)
+        notify = intent.getBooleanExtra(INTENT_NOTIFY, false)
     }
 
     private fun initUI() {
