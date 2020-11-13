@@ -5,9 +5,9 @@ import com.google.gson.JsonObject
 import dagger.multibindings.IntKey
 import dagger.multibindings.StringKey
 import project.absurdnerds.simplify.UserModel
-import project.absurdnerds.simplify.data.request.CommonPhoneRequest
-import project.absurdnerds.simplify.data.request.ProfilePutRequest
-import project.absurdnerds.simplify.data.request.ProfileRequest
+import project.absurdnerds.simplify.data.request.*
+import project.absurdnerds.simplify.data.response.FirePostResponse
+import project.absurdnerds.simplify.data.response.PolicePostResponse
 import project.absurdnerds.simplify.data.response.ProfilePostResponse
 import project.absurdnerds.simplify.utils.AppConfig
 import retrofit2.Call
@@ -59,6 +59,27 @@ interface ApiInterface {
     fun postProfileData(
         @Body profileRequest: ProfileRequest
     ): Call<ProfilePostResponse>
+
+    // Ambulance
+    @Headers("Content-Type: application/json")
+    @POST("ambulance/")
+    fun postAmbulanceData(
+        @Body ambulancePostRequest: AmbulancePostRequest
+    ): Call<AmbulancePostRequest>
+
+    // Fire
+    @Headers("Content-Type: application/json")
+    @POST("fire/")
+    fun postFireData(
+        @Body fireRequest: FireRequest
+    ): Call<FirePostResponse>
+
+    // Police
+    @Headers("Content-Type: application/json")
+    @POST("police/")
+    fun postPoliceData(
+        @Body profileRequest: ProfileRequest
+    ): Call<PolicePostResponse>
 
 
 }

@@ -1,4 +1,4 @@
-package project.absurdnerds.simplify.data.response
+package project.absurdnerds.simplify.data.request
 
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
