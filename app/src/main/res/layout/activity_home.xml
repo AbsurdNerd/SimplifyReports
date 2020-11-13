@@ -62,28 +62,36 @@
                         android:id="@+id/imFire"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:scaleType="center"
+                        android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:srcCompat="@tools:sample/avatars" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:src="@drawable/bottom_gradient"/>
+
+                    <TextView
                         android:id="@+id/textView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#A6000000"
                         android:padding="3dp"
                         android:text="@string/fire_alert"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textSize="26dp"
                         android:textColor="@color/white"
+                        android:fontFamily="@font/roboto_medium"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.9" />
+                        app:layout_constraintVertical_bias="0.95" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -105,29 +113,36 @@
                         android:id="@+id/imMedical"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:scaleType="center"
+                        android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:srcCompat="@tools:sample/avatars" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:src="@drawable/bottom_gradient"/>
+
+                    <TextView
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#A6000000"
                         android:padding="3dp"
                         android:text="@string/medical_alert"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textSize="26dp"
                         android:textColor="@color/white"
+                        android:fontFamily="@font/roboto_medium"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.9" />
-
+                        app:layout_constraintVertical_bias="0.95"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
@@ -138,7 +153,7 @@
                 android:layout_height="0dp"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
-                app:contentPaddingRight="10dp">
+                app:cardCornerRadius="10dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -148,28 +163,36 @@
                         android:id="@+id/imPolice"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:scaleType="center"
+                        android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:srcCompat="@tools:sample/avatars" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:src="@drawable/bottom_gradient"/>
+
+                    <TextView
                         android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#A6000000"
+                        android:fontFamily="@font/roboto_medium"
                         android:padding="3dp"
                         android:text="@string/police_report"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="@color/white"
+                        android:textSize="26dp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.9" />
+                        app:layout_constraintVertical_bias="0.95" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

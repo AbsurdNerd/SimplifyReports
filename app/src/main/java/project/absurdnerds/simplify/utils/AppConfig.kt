@@ -32,5 +32,6 @@ object AppConfig {
     const val AMBULANCE = "ambulance/"
     const val FIRE = "fire"
     const val POLICE = "police"
+    const val SHARED_PREF = "SHARED_PREF"
 
 }

@@ -1,20 +1,36 @@
 package project.absurdnerds.simplify.medical
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View.OnTouchListener
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import cn.pedant.SweetAlert.SweetAlertDialog
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_medical.*
+import project.absurdnerds.simplify.LocationChangeInterface
+import project.absurdnerds.simplify.MapsFragment
 import project.absurdnerds.simplify.R
 import project.absurdnerds.simplify.databinding.ActivityMedicalBinding
 import project.absurdnerds.simplify.medical.MedicalViewState.*
+import project.absurdnerds.simplify.utils.AppConfig.SHARED_PREF
 import project.absurdnerds.simplify.utils.dialog.ViewDialog
 import project.absurdnerds.simplify.utils.showToast
 
-class MedicalActivity : AppCompatActivity() {
+
+class MedicalActivity : AppCompatActivity(), LocationChangeInterface {
 
     companion object{
+
+        private lateinit var sharedPreferences: SharedPreferences
+        private lateinit var firebaseAuth: FirebaseAuth
+        private lateinit var sweetAlertDialog: SweetAlertDialog
+
         fun start(context: Context) {
             val intent = Intent(context, MedicalActivity::class.java)
             context.startActivity(intent)
@@ -27,12 +43,38 @@ class MedicalActivity : AppCompatActivity() {
 
     private lateinit var loadingDialog : ViewDialog
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_medical)
         initViewModel()
         setObservers()
         initUI()
+
+        medicalLocationCard.setOnTouchListener(OnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_MOVE -> medicalScroll.requestDisallowInterceptTouchEvent(true)
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> medicalScroll.requestDisallowInterceptTouchEvent(
+                    false
+                )
+            }
+            medicalLocationCard.onTouchEvent(event)
+        })
+
+        patientLocationFrame.setOnTouchListener(OnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_MOVE -> medicalScroll.requestDisallowInterceptTouchEvent(true)
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> medicalScroll.requestDisallowInterceptTouchEvent(
+                    false
+                )
+            }
+            medicalLocationCard.onTouchEvent(event)
+        })
+
+    }
+
+    private fun reportPatient() {
+
     }
 
     private fun initViewModel() {
@@ -47,10 +89,17 @@ class MedicalActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
+
+        sharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        firebaseAuth = FirebaseAuth.getInstance()
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.patientLocationFrame, MapsFragment())
+            .commit()
         binding.viewModel = viewModel
     }
 
-    private fun render(state : MedicalViewState) {
+    private fun render(state: MedicalViewState) {
         when(state) {
             Loading -> showLoading()
             OnSuccess -> onSuccess()
@@ -72,7 +121,7 @@ class MedicalActivity : AppCompatActivity() {
         showToast("Success")
     }
 
-    private fun onError(message : String?) {
+    private fun onError(message: String?) {
         hideLoading()
         if (message != null) {
             showToast(message)
@@ -92,4 +141,7 @@ class MedicalActivity : AppCompatActivity() {
         }*/
     }
 
+    override fun onLocationChange(location: String, latLong: String) {
+
+    }
 }

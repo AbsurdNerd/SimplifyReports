@@ -1,10 +1,22 @@
 package project.absurdnerds.simplify.utils
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Group
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import project.absurdnerds.simplify.fire.FireActivity
+
+val REQUEST_CODE_PERMISSIONS = 99
+val REQUEST_CODE_LOCATION = 98
+val REQUIRED_PERMISSIONS = arrayOf(
+    Manifest.permission.ACCESS_COARSE_LOCATION,
+    Manifest.permission.ACCESS_FINE_LOCATION
+)
 
 /**
  * This function enable the visibility of View
@@ -51,4 +63,10 @@ fun AppCompatActivity.showToast(message: String) {
  */
 fun Fragment.showToast(message: String?) {
     Toast.makeText(this.activity, message, Toast.LENGTH_SHORT).show()
+}
+
+fun allPermissionsGranted(context: Context) = REQUIRED_PERMISSIONS.all {
+    ContextCompat.checkSelfPermission(
+        context, it
+    ) == PackageManager.PERMISSION_GRANTED
 }

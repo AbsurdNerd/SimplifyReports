@@ -22,9 +22,9 @@ class FireViewModel constructor(
 
     var text : MutableLiveData<String> = MutableLiveData()
 
-    fun button (){
-        viewState = OnSuccess
-        text.value = "button pressed"
-    }
+//    fun button (){
+//        viewState = OnSuccess
+//        text.value = "button pressed"
+//    }
 
 }

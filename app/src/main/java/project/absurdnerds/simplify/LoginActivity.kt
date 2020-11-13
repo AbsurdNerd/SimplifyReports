@@ -1,7 +1,9 @@
 package project.absurdnerds.simplify
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
@@ -19,6 +21,7 @@ import project.absurdnerds.simplify.Fragment.LoginMobileFragment
 import project.absurdnerds.simplify.api.ApiInterface
 import project.absurdnerds.simplify.data.request.ProfilePutRequest
 import project.absurdnerds.simplify.home.HomeActivity
+import project.absurdnerds.simplify.utils.showToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,11 +29,11 @@ import timber.log.Timber
 
 class LoginActivity : AppCompatActivity(), FragmentChangeInterface {
 
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var fragmentTransaction: FragmentTransaction
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var sweetAlertDialog: SweetAlertDialog
     private val REQUEST_CODE_PERMISSIONS = 99
-    private val REQUEST_CODE_LOCATION = 98
     private val REQUIRED_PERMISSIONS = arrayOf(
         Manifest.permission.ACCESS_COARSE_LOCATION,
         Manifest.permission.ACCESS_FINE_LOCATION
@@ -42,6 +45,7 @@ class LoginActivity : AppCompatActivity(), FragmentChangeInterface {
 
         var fragment = LoginMobileFragment()
         firebaseAuth = FirebaseAuth.getInstance()
+        sharedPreferences = getSharedPreferences(getString(R.string.SHARED_PREF), Context.MODE_PRIVATE)
 
         if (firebaseAuth.currentUser != null) {
             sweetAlertDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
@@ -49,6 +53,9 @@ class LoginActivity : AppCompatActivity(), FragmentChangeInterface {
             sweetAlertDialog.titleText = "Loading";
             sweetAlertDialog.setCancelable(false);
             sweetAlertDialog.show();
+
+            sharedPreferences.edit().putString(getString(R.string.PHONE), firebaseAuth.currentUser!!.phoneNumber)
+                .apply()
 
             Timber.e(firebaseAuth.currentUser!!.phoneNumber)
             createToken(firebaseAuth.currentUser!!.phoneNumber.toString())
@@ -120,6 +127,17 @@ class LoginActivity : AppCompatActivity(), FragmentChangeInterface {
             }
 
         })
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults:
+        IntArray
+    ) {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (!allPermissionsGranted())  {
+                showToast("Permissions not granted by the user.")
+            }
+        }
     }
 
 }

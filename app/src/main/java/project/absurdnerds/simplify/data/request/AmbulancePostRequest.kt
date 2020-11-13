@@ -7,23 +7,14 @@ import android.os.Parcelable
 @Parcelize
  class AmbulancePostRequest(
 
-    @SerializedName("id")
-    var id: Int? = null,
-
     @SerializedName("patient_name")
     var patientName: String? = null,
 
-    @SerializedName("patient_phone_number")
-    var patientPhoneNumber: String? = null,
-
-    @SerializedName("location")
-    var location: String? = null,
-
-    @SerializedName("address")
-    var address: String? = null,
-
     @SerializedName("age")
     var age: Int? = null,
+
+    @SerializedName("patient_phone_number")
+    var patientPhoneNumber: String? = null,
 
     @SerializedName("gender")
     var gender: String? = null,
@@ -34,8 +25,11 @@ import android.os.Parcelable
     @SerializedName("patient_problem")
     var patientProblem: String? = null,
 
-    @SerializedName("created")
-    var created: String? = null,
+    @SerializedName("location")
+    var location: String? = null,
+
+    @SerializedName("address")
+    var address: String? = null,
 
     @SerializedName("user")
     var user: String? = null

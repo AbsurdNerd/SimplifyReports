@@ -12,9 +12,13 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
+        android:id="@+id/medicalScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -188,27 +192,70 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/medicalLocationCard"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_marginTop="24dp"
+                android:scrollbars="none"
+                android:overScrollMode="never"
+                android:focusableInTouchMode="true"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                app:cardCornerRadius="10dp">
+                <FrameLayout
+                    android:id="@+id/patientLocationFrame"
+                    android:layout_width="match_parent"
+                    android:scrollbars="none"
+                    android:overScrollMode="never"
+                    android:focusableInTouchMode="true"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_baseline_location_on_24"
+                    android:layout_marginBottom="24dp"
+                    app:tint="@color/red_btn_bg_color" />
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPatientAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_patient_problem"
+                    android:inputType="text"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btAmbulanceCall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/call_an_ambulance"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
         </LinearLayout>
 
-        <View
-            android:id="@+id/location"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline5"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btCall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/call_an_ambulance"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toTopOf="@+id/guideline5" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 
 </layout>

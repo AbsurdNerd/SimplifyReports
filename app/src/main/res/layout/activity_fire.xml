@@ -87,10 +87,45 @@
                 android:textColor="@color/black"
                 android:textSize="21sp" />
 
-            <View
-                android:id="@+id/location"
+            <!--            <View-->
+            <!--                android:id="@+id/location"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent" />-->
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/locationCard"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="220dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                app:cardCornerRadius="10dp">
+                <FrameLayout
+                    android:id="@+id/locationFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_baseline_location_on_24"
+                    android:layout_marginBottom="24dp"
+                    app:tint="@color/red_btn_bg_color" />
+
+            </androidx.cardview.widget.CardView>
+
+            <EditText
+                android:id="@+id/etReportFireLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/et_background"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:hint="Address"
+                android:lines="3"
+                android:padding="8dp"/>
 
         </LinearLayout>
 

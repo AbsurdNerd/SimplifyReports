@@ -1,9 +1,12 @@
 package project.absurdnerds.simplify.home
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.JsonObject
 import project.absurdnerds.simplify.R
@@ -16,6 +19,7 @@ import project.absurdnerds.simplify.databinding.ActivityHomeBinding
 import project.absurdnerds.simplify.fire.FireActivity
 import project.absurdnerds.simplify.medical.MedicalActivity
 import project.absurdnerds.simplify.police.PoliceActivity
+import project.absurdnerds.simplify.utils.AppConfig.SHARED_PREF
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,17 +28,24 @@ import timber.log.Timber
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityHomeBinding
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         initView()
         onClick()
-        checkUser()
+
+        sharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        firebaseAuth = FirebaseAuth.getInstance()
 
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
             Timber.e(it)
         }
+
+        sharedPreferences.edit().putString(getString(R.string.PHONE), firebaseAuth.currentUser!!.phoneNumber)
+            .apply()
 
     }
 
@@ -61,7 +72,7 @@ class HomeActivity : AppCompatActivity() {
     private fun initView() {
         Glide.with(this)
                 .asGif()
-                .load(R.drawable.ambulance)
+                .load(R.drawable.fire_gif)
                 .into(binding.imFire)
 
         Glide.with(this)
@@ -71,51 +82,7 @@ class HomeActivity : AppCompatActivity() {
 
         Glide.with(this)
                 .asGif()
-                .load(R.drawable.ambulance)
+                .load(R.drawable.police_gif)
                 .into(binding.imPolice)
-    }
-
-    fun checkUser() {
-        var apiInterface = ApiInterface.invoke()
-        var map: HashMap<String, Any> = HashMap()
-        map["phone"] = "8604609572"
-
-        var map1: HashMap<String, Any> = HashMap()
-        map1["phone"] = "9521746567"
-
-        val commonPostResponse = ProfilePutRequest("8604609572", "qwertyuikl;cscsas")
-        val commonPostResponse1 = ProfilePutRequest("12345678", "qwertyuiop")
-//        var jsonObject: JsonObject = map.toString()
-        var call: Call<Void> = apiInterface.putProfileToken(commonPostResponse)
-
-        call.enqueue(object : Callback<Void> {
-            override fun onResponse(
-                call: Call<Void>,
-                response: Response<Void>
-            ) {
-                Timber.e("860 : ${response.code().toString()}")
-            }
-
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Timber.e(t)
-            }
-
-        })
-
-        var call1: Call<Void> = apiInterface.putProfileToken(commonPostResponse1)
-        call1.enqueue(object : Callback<Void> {
-            override fun onResponse(
-                call: Call<Void>,
-                response: Response<Void>
-            ) {
-                Timber.e("9521 : ${response.code().toString()}")
-            }
-
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Timber.e(t)
-            }
-
-        })
-
     }
 }

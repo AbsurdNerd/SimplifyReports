@@ -18,6 +18,8 @@
     <string name="enter_patient_phone_number">Enter patient phone number</string>
     <string name="submit">Submit</string>
     <string name="describe_your_problem_in_detail">Describe your problem in detail</string>
+    <string name="SHARED_PREF">SHARED_PREF</string>
+    <string name="PHONE">PHONE</string>
     <string-array name="blood_group">
         <item>A+</item>
         <item>B+</item>

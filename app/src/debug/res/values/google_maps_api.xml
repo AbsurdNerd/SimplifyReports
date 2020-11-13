@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=C7:D3:D9:9A:A9:FD:FE:7A:3D:11:22:7C:A7:F8:4E:9F:05:FA:F1:FB%3Bproject.absurdnerds.simplify
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    project.absurdnerds.simplify
+
+    SHA-1 certificate fingerprint:
+    C7:D3:D9:9A:A9:FD:FE:7A:3D:11:22:7C:A7:F8:4E:9F:05:FA:F1:FB
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyA_0zQ8Zg8FnE5iuOn40r35it_j1q7kmrA</string>
+</resources>
