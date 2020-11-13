@@ -6,10 +6,7 @@ import dagger.multibindings.IntKey
 import dagger.multibindings.StringKey
 import project.absurdnerds.simplify.UserModel
 import project.absurdnerds.simplify.data.request.*
-import project.absurdnerds.simplify.data.response.AmbulanceGetResponse
-import project.absurdnerds.simplify.data.response.FirePostResponse
-import project.absurdnerds.simplify.data.response.PolicePostResponse
-import project.absurdnerds.simplify.data.response.ProfilePostResponse
+import project.absurdnerds.simplify.data.response.*
 import project.absurdnerds.simplify.utils.AppConfig
 import retrofit2.Call
 import retrofit2.Response
@@ -88,6 +85,18 @@ interface ApiInterface {
     fun getAmbulance(
         @Body commonPhoneRequest: CommonPhoneRequest
     ) : Call<AmbulanceGetResponse>
+
+    @Headers("Content-Type: application/json")
+    @GET("fire/")
+    fun getFire(
+        @Body commonPhoneRequest: CommonPhoneRequest
+    ) : Call<FireGetResponse>
+
+    @Headers("Content-Type: application/json")
+    @GET("police/")
+    fun getPolice(
+        @Body commonPhoneRequest: CommonPhoneRequest
+    ) : Call<PoliceGetResponse>
 
 
 }

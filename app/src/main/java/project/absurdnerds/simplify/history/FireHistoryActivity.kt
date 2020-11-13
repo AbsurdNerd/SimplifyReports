@@ -6,26 +6,24 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import project.absurdnerds.simplify.R
 import project.absurdnerds.simplify.api.ApiInterface
 import project.absurdnerds.simplify.data.request.CommonPhoneRequest
-import project.absurdnerds.simplify.data.request.FireRequest
 import project.absurdnerds.simplify.data.response.AmbulanceGetResponse
 import project.absurdnerds.simplify.data.response.FireGetResponse
-import project.absurdnerds.simplify.data.response.FirePostResponse
 import project.absurdnerds.simplify.data.response.PoliceGetResponse
 import project.absurdnerds.simplify.databinding.ActivityFireHistoryBinding
-import project.absurdnerds.simplify.fire.FireActivity
 import project.absurdnerds.simplify.history.adapter.AmbulanceAdapter
 import project.absurdnerds.simplify.history.adapter.FireAdapter
 import project.absurdnerds.simplify.history.adapter.PoliceAdapter
 import project.absurdnerds.simplify.utils.AppConfig
 import project.absurdnerds.simplify.utils.ReportType
+import project.absurdnerds.simplify.utils.showToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 
 class FireHistoryActivity : AppCompatActivity() {
 
@@ -109,11 +107,17 @@ class FireHistoryActivity : AppCompatActivity() {
                 call: Call<AmbulanceGetResponse>,
                 response: Response<AmbulanceGetResponse>
             ) {
-                TODO("Not yet implemented")
+                Timber.e("ambulance history : ${response.code().toString()}")
+                if (response.isSuccessful) {
+                    ambulanceList = response.body()!!
+                } else {
+                    showToast("Something went wrong")
+                }
             }
 
             override fun onFailure(call: Call<AmbulanceGetResponse>, t: Throwable) {
-                TODO("Not yet implemented")
+                Timber.e(t)
+                showToast("Something went wrong")
             }
 
         })
@@ -123,14 +127,60 @@ class FireHistoryActivity : AppCompatActivity() {
 
     private fun fetchFire() {
 
+        var apiInterface = ApiInterface.invoke()
+        val getRequest = CommonPhoneRequest(mobileNumber)
+        var call: Call<FireGetResponse> = apiInterface.getFire(getRequest)
 
+        call.enqueue(object : Callback<FireGetResponse> {
+
+            override fun onResponse(
+                call: Call<FireGetResponse>,
+                response: Response<FireGetResponse>
+            ) {
+                Timber.e("fire history : ${response.code().toString()}")
+                if (response.isSuccessful) {
+                    fireList = response.body()!!
+                } else {
+                    showToast("Something went wrong")
+                }
+            }
+
+            override fun onFailure(call: Call<FireGetResponse>, t: Throwable) {
+                Timber.e(t)
+                showToast("Something went wrong")
+            }
+
+        })
 
         fireAdapter.notifyDataSetChanged()
     }
 
     private fun fetchPolice() {
 
+        var apiInterface = ApiInterface.invoke()
+        val getRequest = CommonPhoneRequest(mobileNumber)
+        var call: Call<PoliceGetResponse> = apiInterface.getPolice(getRequest)
 
+        call.enqueue(object : Callback<PoliceGetResponse> {
+
+            override fun onResponse(
+                call: Call<PoliceGetResponse>,
+                response: Response<PoliceGetResponse>
+            ) {
+                Timber.e("police history : ${response.code().toString()}")
+                if (response.isSuccessful) {
+                    policeList = response.body()!!
+                } else {
+                    showToast("Something went wrong")
+                }
+            }
+
+            override fun onFailure(call: Call<PoliceGetResponse>, t: Throwable) {
+                Timber.e(t)
+                showToast("Something went wrong")
+            }
+
+        })
 
         policeAdapter.notifyDataSetChanged()
     }
