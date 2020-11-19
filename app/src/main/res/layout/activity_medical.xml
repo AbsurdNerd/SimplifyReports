@@ -33,7 +33,7 @@
                 android:id="@+id/toolMedical"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="Ambulance" />
+                app:title="@string/ambulance" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -233,7 +233,7 @@
                     android:id="@+id/etPatientAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Address"
+                    android:hint="@string/address"
                     android:inputType="text"
                     android:textSize="16sp" />
 

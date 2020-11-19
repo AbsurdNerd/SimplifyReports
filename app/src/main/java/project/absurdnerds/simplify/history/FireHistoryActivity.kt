@@ -111,13 +111,13 @@ class FireHistoryActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     ambulanceList = response.body()!!
                 } else {
-                    showToast("Something went wrong")
+                    showToast(getString(R.string.something_went_wrong))
                 }
             }
 
             override fun onFailure(call: Call<AmbulanceGetResponse>, t: Throwable) {
                 Timber.e(t)
-                showToast("Something went wrong")
+                showToast(getString(R.string.something_went_wrong))
             }
 
         })
@@ -143,13 +143,13 @@ class FireHistoryActivity : AppCompatActivity() {
                     fireAdapter.notifyDataSetChanged()
                     Timber.e(response.body()!!.toString())
                 } else {
-                    showToast("Something went wrong")
+                    showToast(getString(R.string.something_went_wrong))
                 }
             }
 
             override fun onFailure(call: Call<FireGetResponse>, t: Throwable) {
                 Timber.e(t)
-                showToast("Something went wrong")
+                showToast(getString(R.string.something_went_wrong))
             }
 
         })
@@ -174,13 +174,13 @@ class FireHistoryActivity : AppCompatActivity() {
                     policeList = response.body()!!
                     Timber.e(policeList.size.toString())
                 } else {
-                    showToast("Something went wrong")
+                    showToast(getString(R.string.something_went_wrong))
                 }
             }
 
             override fun onFailure(call: Call<PoliceGetResponse>, t: Throwable) {
                 Timber.e(t)
-                showToast("Something went wrong")
+                showToast(getString(R.string.something_went_wrong))
             }
 
         })

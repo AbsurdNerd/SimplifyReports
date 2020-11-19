@@ -93,16 +93,16 @@ class LoginOTPFragment : Fragment() {
     private fun firebaseAuth() {
 
         var sweetAlertDialog = SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE)
-        sweetAlertDialog.progressHelper.barColor = Color.parseColor("#A5DC86");
-        sweetAlertDialog.titleText = "Loading";
-        sweetAlertDialog.setCancelable(false);
-        sweetAlertDialog.show();
+        sweetAlertDialog.progressHelper.barColor = Color.parseColor(R.color.progressBarColor.toString())
+        sweetAlertDialog.titleText = getString(R.string.loading)
+        sweetAlertDialog.setCancelable(false)
+        sweetAlertDialog.show()
 
         val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
 
-                Timber.d("Phone Verified")
+                Timber.d(getString(R.string.phone_verified))
 
             }
 
@@ -112,7 +112,7 @@ class LoginOTPFragment : Fragment() {
                 sweetAlertDialog.cancel()
 
                 SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("Error Sending OTP")
+                    .setTitleText(getString(R.string.error_sending_otp))
                     .show()
 
             }
@@ -154,10 +154,10 @@ class LoginOTPFragment : Fragment() {
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
 
         var sweetAlertDialog = SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE)
-        sweetAlertDialog.progressHelper.barColor = Color.parseColor("#A5DC86");
-        sweetAlertDialog.titleText = "Loading";
-        sweetAlertDialog.setCancelable(false);
-        sweetAlertDialog.show();
+        sweetAlertDialog.progressHelper.barColor = Color.parseColor(R.color.progressBarColor.toString())
+        sweetAlertDialog.titleText = getString(R.string.loading)
+        sweetAlertDialog.setCancelable(false)
+        sweetAlertDialog.show()
 
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
@@ -192,7 +192,7 @@ class LoginOTPFragment : Fragment() {
         }
         else {
             SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
-                .setTitleText("Something went wrong")
+                .setTitleText(getString(R.string.something_went_wrong))
                 .show()
         }
     }

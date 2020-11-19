@@ -1,5 +1,6 @@
 package project.absurdnerds.simplify.Fragment
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -51,7 +52,7 @@ class LoginMobileFragment : Fragment() {
         buttonGetOtp.setOnClickListener {
 
             if (etLoginMobile.text.isNullOrEmpty()) {
-                showToast("Mobile Number can't be blank")
+                showToast(getString(R.string.mobile_number_cant_be_blank))
                 return@setOnClickListener
             }
 
@@ -68,19 +69,21 @@ class LoginMobileFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
     }
 
+
+    @SuppressLint("ResourceType")
     private fun firebaseAuth() {
 
         var sweetAlertDialog = SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE)
-        sweetAlertDialog.progressHelper.barColor = Color.parseColor("#A5DC86");
-        sweetAlertDialog.titleText = "Loading";
-        sweetAlertDialog.setCancelable(false);
-        sweetAlertDialog.show();
+        sweetAlertDialog.progressHelper.barColor = Color.parseColor(resources.getString(R.color.progressBarColor))
+        sweetAlertDialog.titleText = getString(R.string.loading)
+        sweetAlertDialog.setCancelable(false)
+        sweetAlertDialog.show()
 
         val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
 
-                Timber.d("Phone Verified")
+                Timber.d(getString(R.string.phone_verified))
 
             }
 
@@ -90,7 +93,7 @@ class LoginMobileFragment : Fragment() {
                 sweetAlertDialog.cancel()
 
                 SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("Error Sending OTP")
+                    .setTitleText(getString(R.string.error_sending_otp))
                     .show()
 
             }

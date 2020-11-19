@@ -25,7 +25,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="OTP Verification" />
+        android:text="@string/otp_verification" />
 
     <ImageView
         android:id="@+id/otpImage"
@@ -195,7 +195,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Don't received the OTP? "
+            android:text="@string/didn_t_received_the_otp"
             android:textAlignment="center"
             android:textColor="@android:color/darker_gray"
             android:textSize="14dp" />
@@ -206,7 +206,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:text="RESEND OTP"
+            android:text="@string/resend_otp"
             android:textAlignment="center"
             android:textColor="@android:color/holo_orange_dark"
             android:textSize="14dp"
@@ -223,10 +223,10 @@
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:shadowRadius="5"
-        android:text="Verify"
+        android:text="@string/verify"
         android:textColor="@android:color/white"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:rippleColor="#9D7ED6"/>
+        app:rippleColor="@color/rippleColor"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

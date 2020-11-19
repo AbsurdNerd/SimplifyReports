@@ -99,10 +99,10 @@ class MedicalActivity : AppCompatActivity(), LocationChangeInterface {
     private fun reportPatient() {
 
         sweetAlertDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-        sweetAlertDialog.progressHelper.barColor = Color.parseColor("#A5DC86");
-        sweetAlertDialog.titleText = "Loading";
-        sweetAlertDialog.setCancelable(false);
-        sweetAlertDialog.show();
+        sweetAlertDialog.progressHelper.barColor = Color.parseColor(R.color.progressBarColor.toString())
+        sweetAlertDialog.titleText = R.string.loading.toString()
+        sweetAlertDialog.setCancelable(false)
+        sweetAlertDialog.show()
 
         location = etPatientAddress.text.toString()
         var gender = spPatientGender.selectedItem.toString()
@@ -132,18 +132,18 @@ class MedicalActivity : AppCompatActivity(), LocationChangeInterface {
                 Timber.e("Medical Report : ${response.code().toString()}")
                 if (response.isSuccessful) {
                     var sad = SweetAlertDialog(this@MedicalActivity, SweetAlertDialog.SUCCESS_TYPE)
-                    sad.titleText = "You have Reported a Patient"
+                    sad.titleText = getString(R.string.you_have_reported_a_patient)
                     sad.show()
                 }
                 else {
-                    showToast("Something went wrong")
+                    showToast(getString(R.string.something_went_wrong))
                 }
                 sweetAlertDialog.cancel()
             }
 
             override fun onFailure(call: Call<AmbulanceRequest>, t: Throwable) {
                 Timber.e(t)
-                showToast("Something went wrong")
+                showToast(getString(R.string.something_went_wrong))
                 sweetAlertDialog.cancel()
             }
         })
@@ -199,7 +199,7 @@ class MedicalActivity : AppCompatActivity(), LocationChangeInterface {
 
     private fun onSuccess() {
         hideLoading()
-        showToast("Success")
+        showToast(getString(R.string.success))
     }
 
     private fun onError(message: String?) {
@@ -242,7 +242,7 @@ class MedicalActivity : AppCompatActivity(), LocationChangeInterface {
                 // TODO Add your Activity to open here
                 // INTENT
 
-                showToast("History")
+                showToast(getString(R.string.history))
 
                 true
             }

@@ -1,6 +1,7 @@
 package project.absurdnerds.simplify.fire
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -89,7 +90,7 @@ class FireActivity : AppCompatActivity(), LocationChangeInterface {
 
         btAlert.setOnClickListener {
 
-            showToast("Alert")
+            showToast(getString(R.string.alert))
             reportFire()
 
         }
@@ -130,7 +131,7 @@ class FireActivity : AppCompatActivity(), LocationChangeInterface {
 
     private fun onSuccess() {
         hideLoading()
-        showToast("Success")
+        showToast(getString(R.string.success))
     }
 
     private fun onError(message: String?) {
@@ -153,13 +154,14 @@ class FireActivity : AppCompatActivity(), LocationChangeInterface {
         }*/
     }
 
+
     private fun reportFire() {
 
         sweetAlertDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-        sweetAlertDialog.progressHelper.barColor = Color.parseColor("#A5DC86");
-        sweetAlertDialog.titleText = "Loading";
-        sweetAlertDialog.setCancelable(false);
-        sweetAlertDialog.show();
+        sweetAlertDialog.progressHelper.barColor = Color.parseColor(R.color.progressBarColor.toString())
+        sweetAlertDialog.titleText = getString(R.string.loading)
+        sweetAlertDialog.setCancelable(false)
+        sweetAlertDialog.show()
 
         location = etReportFireLocation.text.toString()
         var apiInterface = ApiInterface.invoke()
@@ -174,17 +176,17 @@ class FireActivity : AppCompatActivity(), LocationChangeInterface {
                 Timber.e("Fire Report : ${response.code().toString()}")
                 if (response.isSuccessful) {
                     var sad = SweetAlertDialog(this@FireActivity, SweetAlertDialog.SUCCESS_TYPE)
-                    sad.titleText = "You have Reported Fire in your Area"
+                    sad.titleText = getString(R.string.you_have_reported_fire_in_your_area)
                     sad.show()
                 } else {
-                    showToast("Something went wrong")
+                    showToast(getString(R.string.something_went_wrong))
                 }
                 sweetAlertDialog.cancel()
             }
 
             override fun onFailure(call: Call<FirePostResponse>, t: Throwable) {
                 Timber.e(t)
-                showToast("Something went wrong")
+                showToast(getString(R.string.something_went_wrong))
                 sweetAlertDialog.cancel()
             }
         })
@@ -196,7 +198,7 @@ class FireActivity : AppCompatActivity(), LocationChangeInterface {
     ) {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (!allPermissionsGranted(this))  {
-                showToast("Permissions not granted by the user.")
+                showToast(getString(R.string.permissions_not_granted_by_the_user))
             }
         }
     }
@@ -223,7 +225,7 @@ class FireActivity : AppCompatActivity(), LocationChangeInterface {
                     ReportType.FIRE.name
                 )
 
-                showToast("History")
+                showToast(getString(R.string.history))
 
                 true
             }

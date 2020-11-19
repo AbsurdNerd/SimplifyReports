@@ -40,10 +40,10 @@ class PoliceActivity : AppCompatActivity() {
     }
 
     private fun fillList(){
-        list.add(PoliceModel("Found",false))
-        list.add(PoliceModel("Missing",true))
-        list.add(PoliceModel("Death",false))
-        list.add(PoliceModel("Robbery",true))
+        list.add(PoliceModel(getString(R.string.found),false))
+        list.add(PoliceModel(getString(R.string.missing),true))
+        list.add(PoliceModel(getString(R.string.death),false))
+        list.add(PoliceModel(getString(R.string.robbery),true))
         adapter.notifyDataSetChanged()
     }
 

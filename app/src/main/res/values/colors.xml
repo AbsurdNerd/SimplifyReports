@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorGrayLight">#F4EAEA</color>
+    <color name="progressBarColor">#A5DC86</color>
+    <color name="rippleColor">#9D7ED6</color>
 </resources>
