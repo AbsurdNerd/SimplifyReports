@@ -66,12 +66,12 @@ class NewUserActivity : AppCompatActivity() {
                                 }
                             }
                             else {
-                                Toast.makeText(this, "All fields are compulsory", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, getString(R.string.all_fields_are_compulsory), Toast.LENGTH_SHORT).show()
                             }
                         }
                 }
                 else {
-                    Toast.makeText(this, "Turn on Location Access from settings", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.turn_on_location_access_from_settings), Toast.LENGTH_SHORT).show()
                 }
             } else {
                 ActivityCompat.requestPermissions(
@@ -85,14 +85,14 @@ class NewUserActivity : AppCompatActivity() {
 
     private fun checkFields(): Boolean {
         if (etFName.text.isNullOrEmpty())
-            return false;
+            return false
         if (etLName.text.isNullOrEmpty())
-            return false;
+            return false
         if (etPhone.text.isNullOrEmpty())
-            return false;
+            return false
         if (etPermanentAddress.text.isNullOrEmpty())
-            return false;
-        return true;
+            return false
+        return true
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
@@ -104,17 +104,17 @@ class NewUserActivity : AppCompatActivity() {
     private fun createUser(token: String) {
 
         sweetAlertDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-        sweetAlertDialog.progressHelper.barColor = Color.parseColor("#A5DC86");
-        sweetAlertDialog.titleText = "Loading";
-        sweetAlertDialog.setCancelable(false);
-        sweetAlertDialog.show();
+        sweetAlertDialog.progressHelper.barColor = Color.parseColor(R.color.progressBarColor.toString())
+        sweetAlertDialog.titleText = R.string.loading.toString()
+        sweetAlertDialog.setCancelable(false)
+        sweetAlertDialog.show()
 
         var gender = "Male"
 
         gender = if (rbMale.isChecked)
             "Male"
         else
-            "Female";
+            "Female"
 
 
         var apiInterface = ApiInterface.invoke()

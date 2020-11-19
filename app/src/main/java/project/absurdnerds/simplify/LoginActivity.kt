@@ -49,10 +49,10 @@ class LoginActivity : AppCompatActivity(), FragmentChangeInterface {
 
         if (firebaseAuth.currentUser != null) {
             sweetAlertDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-            sweetAlertDialog.progressHelper.barColor = Color.parseColor("#A5DC86");
-            sweetAlertDialog.titleText = "Loading";
-            sweetAlertDialog.setCancelable(false);
-            sweetAlertDialog.show();
+            sweetAlertDialog.progressHelper.barColor = Color.parseColor(R.color.progressBarColor.toString())
+            sweetAlertDialog.titleText = getString(R.string.loading)
+            sweetAlertDialog.setCancelable(false)
+            sweetAlertDialog.show()
 
             sharedPreferences.edit().putString(getString(R.string.PHONE), firebaseAuth.currentUser!!.phoneNumber)
                 .apply()
@@ -135,7 +135,7 @@ class LoginActivity : AppCompatActivity(), FragmentChangeInterface {
     ) {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (!allPermissionsGranted())  {
-                showToast("Permissions not granted by the user.")
+                showToast(getString(R.string.permissions_not_granted_by_the_user))
             }
         }
     }

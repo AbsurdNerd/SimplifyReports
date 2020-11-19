@@ -21,7 +21,7 @@
                 android:id="@+id/toolFire"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="Fire Alert" />
+                app:title="@string/fire_alert" />
 
         </com.google.android.material.appbar.AppBarLayout>
 

@@ -24,7 +24,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="PatientName" />
+                android:text="@string/patient_name" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvLocation"
@@ -35,7 +35,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Location" />
+                android:text="@string/location" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDate"
@@ -48,7 +48,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="Date" />
+                android:text="@string/date" />
 
         </LinearLayout>
 

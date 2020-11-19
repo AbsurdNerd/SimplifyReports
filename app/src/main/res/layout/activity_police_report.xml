@@ -29,7 +29,7 @@
                 android:id="@+id/toolPolice"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="Police Report" />
+                app:title="@string/police_report" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -134,7 +134,7 @@
                     android:id="@+id/etPoliceAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Address"
+                    android:hint="@string/address"
                     android:inputType="text"
                     android:textSize="16sp" />
 
