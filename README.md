@@ -21,6 +21,8 @@ Immediate help is provided to people in cases of emergencies as these. User can 
 - Android 5.0 and Above
 - Min sdk version 21
 
+## Screenshots
+
 ## Permissions
 - Internet
 - Location
