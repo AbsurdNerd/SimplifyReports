@@ -20,6 +20,7 @@ Immediate help is provided to people in cases of emergencies as these. User can 
 ## Requirements
 - Android 5.0 and Above
 - Min sdk version 21
+- Android Studio 4.1 Version or above
 
 ## Permissions
 - Internet
