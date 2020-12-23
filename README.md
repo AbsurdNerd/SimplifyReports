@@ -33,3 +33,9 @@ Immediate help is provided to people in cases of emergencies as these. User can 
 | 2.    | Vatsal Kesarwani   | Android Developer         | [@plazzy99](https://github.com/plazzy99)               |
 | 3.    | Diya Jaiswal       | Backend Developer         | [@diyajaiswal11](https://github.com/diyajaiswal11)     |
 | 4.    | Manshi Todi        | Backend Developer         | [@todi-2000](https://github.com/todi-2000)             |
+
+## Contributors ✨:
+
+<a href="https://github.com/AbsurdNerd/SimplifyReports/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=AbsurdNerd/SimplifyReports" />
+</a>
