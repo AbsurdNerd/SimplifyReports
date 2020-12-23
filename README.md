@@ -1,5 +1,5 @@
 # SimplifyReport📢
-
+ ![alt text](https://github.com/AbsurdNerd/SimplifyReports/blob/master/app/src/main/res/drawable/simplify_icon.png?raw=true)
 ### About the Project
 SimplifyReport is an Android Application with backend on Django REST Framework which simplifies the process of reporting cases of fire 🧯, crimes⚠️ and calling an ambulance🚑.
 Immediate help is provided to people in cases of emergencies as these. User can easily post his reports and his neighbours are immediately notified through the application in cases of emergency such as fire outbreak, robbery or any other crime. 
