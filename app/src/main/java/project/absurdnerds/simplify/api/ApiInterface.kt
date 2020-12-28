@@ -1,10 +1,6 @@
 package project.absurdnerds.simplify.api
 
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
-import dagger.multibindings.IntKey
-import dagger.multibindings.StringKey
-import project.absurdnerds.simplify.UserModel
 import project.absurdnerds.simplify.data.request.*
 import project.absurdnerds.simplify.data.response.*
 import project.absurdnerds.simplify.utils.AppConfig

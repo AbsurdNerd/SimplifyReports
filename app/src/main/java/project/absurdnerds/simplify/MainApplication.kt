@@ -1,6 +1,7 @@
 package project.absurdnerds.simplify
 
 import android.app.Application
+import com.facebook.stetho.BuildConfig
 import com.facebook.stetho.Stetho
 import project.absurdnerds.simplify.utils.timber.ReleaseTree
 import project.absurdnerds.simplify.utils.timber.DebugTree
