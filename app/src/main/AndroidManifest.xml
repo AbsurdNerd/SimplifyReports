@@ -34,9 +34,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".police.policeReport.PoliceReportActivity" />
-        <activity android:name=".NewUserActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name="project.absurdnerds.simplify.ui.police.policeReport.PoliceReportActivity" />
+        <activity android:name=".NewUser.NewUserActivity" />
+        <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,21 +44,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".police.PoliceActivity"
+            android:name="project.absurdnerds.simplify.ui.police.PoliceActivity"
             android:label="Police Report" />
         <activity
-            android:name=".medical.MedicalActivity"
+            android:name=".ui.ui.medical.MedicalActivity"
             android:label="Medical Emergency" />
         <activity
             android:name=".fire.FireActivity"
             android:label="Fire Report" />
         <activity
-            android:name=".home.HomeActivity"
+            android:name="project.absurdnerds.simplify.ui.home.HomeActivity"
             android:label="Home Activity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:launchMode="singleTop" />
 
         <service
